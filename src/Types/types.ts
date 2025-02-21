@@ -11,3 +11,8 @@ export interface Article {
 	url: string,
 	urlToImage: string,
 }
+
+export interface GlobalState {
+	articles: Article[] | null;
+	getArticles: () => Promise<void>;
+}

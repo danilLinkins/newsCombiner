@@ -1,25 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import useGlobalStore from "../Store";
 import { Article } from "../Types/types.ts";
 import NewsItem from "./NewsItem.tsx";
 
 function NewsList() {
-	const [articles, setArticles] = useState<Article[]>([]);
+	const { articles, getArticles } = useGlobalStore();
 
 	useEffect(() => {
-		fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=96a46b134f1e4778a720d8c250533224')
-			.then(res => {
-				console.log(res);
-				res.json()
-					.then(result => {
-						console.log(result);
-						setArticles(result.articles);
-					});
-			});
+		getArticles()
+			.then(() => {
+				console.log('Articles loaded');
+			})
+			.catch((error: string) => {throw new Error(error)});
 	}, []);
 
 	const newsList = () => {
-		if (articles?.length > 0) {
-			return articles.map((article: Article, index: number) => {
+		if ((articles || []).length > 0) {
+			return (articles || []).map((article: Article, index: number) => {
 				return (
 					<NewsItem
 						key={`article-${article.source.id}-${index}`}
