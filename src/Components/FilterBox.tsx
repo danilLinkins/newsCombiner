@@ -2,7 +2,7 @@ function FilterBox(){
 	return (
 		<div className="flex place-content-start space-x-2">
 			<select defaultValue="Category" className="select select-xs w-fit">
-				<option value="" disabled>Category</option>
+				<option value="Category" disabled>Category</option>
 				<option>Business</option>
 				<option>Entertainment</option>
 				<option>General</option>

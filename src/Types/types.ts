@@ -12,7 +12,15 @@ export interface Article {
 	urlToImage: string,
 }
 
+export interface UserSettings {
+	sources: string[],
+	categories: '' | 'Business' | 'Entertainment' | 'General' | 'Health' | 'Science' | 'Sports' | 'Technology',
+}
+
 export interface GlobalState {
-	articles: Article[] | null;
-	getArticles: () => Promise<void>;
+	articles: Article[] | void;
+	userSettings: UserSettings | null;
+	getArticles: () => Promise<Article[] | void>;
+	searchArticles: (searchString: string) => Promise<Article[] | void>;
+	filterArticles: () => Promise<Article[] | void>;
 }
