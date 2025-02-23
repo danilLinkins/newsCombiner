@@ -25,7 +25,9 @@ export interface UserSettings {
 }
 
 export interface GlobalState {
-	articles: Article[] | void;
+	articles: Article[];
+	isLoading: boolean;
+	setLoading: (status: boolean) => void;
 	userSettings: UserSettings | null;
 	getArticles: () => Promise<Article[] | void>;
 	searchArticles: (keyWords: string[]) => Promise<void>;

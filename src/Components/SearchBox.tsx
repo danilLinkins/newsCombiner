@@ -1,13 +1,40 @@
+import { useState, useCallback } from 'react';
 import SettingsModal from "./SettingsModal.tsx";
 import FilterBox from "./FilterBox.tsx";
+import useGlobalStore from "../Store";
 
 function SearchBox() {
+	const [searchValue, setSearchValue] = useState<string>("");
+	const searchArticles = useGlobalStore().searchArticles;
+	const setLoading = useGlobalStore(state => state.setLoading);
+
+	const handleChangeSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { value } = e.target;
+		setSearchValue(value);
+		setLoading(true);
+		debouncedSearch(value.split(' '));
+	}
+
+	function debounce<T extends (...args: any[]) => void>(func: T, delay: number): (...args: Parameters<T>) => void {
+		let timeoutId: ReturnType<typeof setTimeout>;
+
+		return (...args: Parameters<T>) => {
+			if (timeoutId) clearTimeout(timeoutId);
+
+			timeoutId = setTimeout(() => {
+				func(...args);
+			}, delay);
+		};
+	}
+
+	const debouncedSearch = useCallback(debounce(searchArticles, 500), []);
+
 	return (
 		<div className="flex flex-col mb-10 filters-box">
 			<div className="flex place-content-between mb-2">
 				<label className="input w-full mr-2">
 					<svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></g></svg>
-					<input type="search" required placeholder="Search"/>
+					<input type="search" value={searchValue} onChange={handleChangeSearchValue} required placeholder="Search"/>
 				</label>
 
 				<label htmlFor="my_modal_7" className="btn">

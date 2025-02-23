@@ -16,7 +16,13 @@ function NewsItem(props: NewsListProps) {
 				<img src={article.imageUrl} alt=""/>
 			</div>
 
-			<h3 className="mt-2 mb-2 text-l font-bold group-hover:text-red-400 transition duration-200">{article.title}</h3>
+			<h3 className="mt-2 mb-2 overflow-hidden line-clamp-3 text-l font-bold group-hover:text-red-400 transition duration-200">{article.title}</h3>
+
+			{
+				!article.imageUrl ? (
+					<p className="mb-3 overflow-hidden line-clamp-4">{article.description}</p>
+				) : null
+			}
 
 			<span
 				className="text-sm text-slate-500 whitespace-nowrap">{format(article.publishedAt, 'dd MMM yyyy')}</span>

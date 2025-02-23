@@ -8,19 +8,24 @@ const useGlobalStore = create<GlobalState>()(
 		persist(
 			(set) => ({
 				articles: [],
+				isLoading: false,
 				userSettings: {
 					sources: [],
 					categories: "",
 				},
 
-				getArticles: async () => {
+				setLoading: (status: boolean) => set({ isLoading: status }),
+
+				getArticles: async (): Promise<void> => {
+					set({ isLoading: true });
 					const articles = await getAllArticles();
-					set({ articles: articles });
+					set({ articles: articles, isLoading: false });
 				},
 
 				searchArticles: async (keyWords: string[]): Promise<void> => {
+					set({ isLoading: true });
 					const articles = await getAllArticles(keyWords);
-					set({ articles: articles });
+					set({ articles: articles, isLoading: false });
 				},
 
 				filterArticles: async () => {},

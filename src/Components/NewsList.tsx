@@ -5,6 +5,7 @@ import NewsItem from "./NewsItem.tsx";
 
 function NewsList() {
 	const { articles, getArticles } = useGlobalStore();
+	const isLoading = useGlobalStore((state) => state.isLoading)
 
 	useEffect(() => {
 		getArticles()
@@ -15,7 +16,7 @@ function NewsList() {
 	}, []);
 
 	const newsList = () => {
-		if ((articles || []).length > 0) {
+		if ((articles || []).length > 0 && !isLoading) {
 			return (articles || []).map((article: Article, index: number) => {
 				return (
 					<NewsItem
