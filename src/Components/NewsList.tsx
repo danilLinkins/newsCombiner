@@ -19,7 +19,7 @@ function NewsList() {
 			return (articles || []).map((article: Article, index: number) => {
 				return (
 					<NewsItem
-						key={`article-${article.source.id}-${index}`}
+						key={`article-${article.source}-${index}`}
 						article={article}
 					/>
 				)

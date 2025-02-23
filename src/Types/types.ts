@@ -1,15 +1,22 @@
 export interface Article {
-	title: string,
-	description: string,
-	author: string,
-	content: string,
-	publishedAt: string,
-	source: {
-		id: string,
-		name: string,
-	},
-	url: string,
-	urlToImage: string,
+	id: string;
+	title: string;
+	source: string;
+	sourceUrl?: string;
+	author?: string;
+	description?: string;
+	url: string;
+	imageUrl?: string;
+	publishedAt: string;
+	language?: string;
+	keywords?: string[];
+	categories?: string[];
+	sentiment?: {
+		pos: number;
+		neg: number;
+		neu: number;
+	};
+	content?: string;
 }
 
 export interface UserSettings {
@@ -21,6 +28,6 @@ export interface GlobalState {
 	articles: Article[] | void;
 	userSettings: UserSettings | null;
 	getArticles: () => Promise<Article[] | void>;
-	searchArticles: (searchString: string) => Promise<Article[] | void>;
+	searchArticles: (keyWords: string[]) => Promise<void>;
 	filterArticles: () => Promise<Article[] | void>;
 }

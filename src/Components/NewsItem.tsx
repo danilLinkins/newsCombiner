@@ -10,10 +10,10 @@ function NewsItem(props: NewsListProps) {
 
 	return (
 		<div className="flex flex-col mb-5 cursor-pointer group hover:opacity-90 transition duration-200 article-list-item">
-			<span className="mb-1 text-sm text-red-400 whitespace-nowrap">{article.source.name}</span>
+			<span className="mb-1 text-sm text-red-400 whitespace-nowrap">{article.source}</span>
 
 			<div className="article-image">
-				<img src={article.urlToImage} alt=""/>
+				<img src={article.imageUrl} alt=""/>
 			</div>
 
 			<h3 className="mt-2 mb-2 text-l font-bold group-hover:text-red-400 transition duration-200">{article.title}</h3>
