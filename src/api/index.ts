@@ -95,6 +95,7 @@ const fetchNews = async (
 			result.data ? result.data.map(item => handleNews(item)) : [];
 	} catch (error) {
 		console.error("Fetch News Error:", error);
+		return [];
 	}
 };
 
@@ -107,12 +108,15 @@ export const getDataHubApi = (keyWords: string[] = [], country: string = "us", l
 export const getTheNewsApi = (keyWords: string[] = [], country: string = "us", lng:string = "en", categories: string = "", sources: string = "") =>
 	fetchNews(API_CONFIG.thenewsapi, keyWords, country, lng, categories, sources);
 
-export const getAllArticles = (keyWords: string[] = [], country: string = "us", lng: string = "en", categories: string = "", sources: string = "") => {
-	const request1 = fetchNews(API_CONFIG.newsapi, keyWords, country, lng, categories, sources);
-	const request2 = fetchNews(API_CONFIG.datahub, keyWords, country, lng, categories, sources);
-	const request3 = fetchNews(API_CONFIG.thenewsapi, keyWords, country, lng, categories, sources);
+export const getAllArticles = async (keyWords: string[] = [], country: string = "us", lng: string = "en", categories: string = "", sources: string = ""): Promise<Article[]> => {
+	try {
+		const request1 = (await fetchNews(API_CONFIG.newsapi, keyWords, country, lng, categories, sources)) ?? [];
+		const request2 = (await fetchNews(API_CONFIG.datahub, keyWords, country, lng, categories, sources)) ?? [];
+		const request3 = (await fetchNews(API_CONFIG.thenewsapi, keyWords, country, lng, categories, sources)) ?? [];
 
-	return Promise.all([request1, request2, request3]).then((results) => {
-		return results.flat();
-	});
+		return [ ...request1, ...request2, ...request3];
+	} catch (error) {
+		console.error("Fetch News Error:", error);
+		return [];
+	}
 }

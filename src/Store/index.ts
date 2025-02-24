@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import { GlobalState } from "../Types/types.ts";
+import { GlobalState, Article } from "../Types/types.ts";
 import { getAllArticles } from "../api";
 
 const useGlobalStore = create<GlobalState>()(
@@ -18,7 +18,7 @@ const useGlobalStore = create<GlobalState>()(
 
 				getArticles: async (): Promise<void> => {
 					set({ isLoading: true });
-					const articles = await getAllArticles();
+					const articles: Article[] = await getAllArticles();
 					set({ articles: articles, isLoading: false });
 				},
 
