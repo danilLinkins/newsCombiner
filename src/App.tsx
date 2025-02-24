@@ -4,7 +4,7 @@ import SearchBox from "./Components/SearchBox.tsx";
 
 function App() {
 	return (
-		<div className="container w-full max-w-2xl">
+		<div className="container w-full max-w-5xl">
 			<SearchBox/>
 			<NewsList/>
 		</div>

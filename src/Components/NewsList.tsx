@@ -46,7 +46,7 @@ function NewsList() {
 	}
 
 	return (
-		<div className="text-left grid grid-cols-2 sm:grid-cols-3 gap-4 articles-list">
+		<div className="w-full sm:w-5xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-left articles-list">
 			{newsList()}
 		</div>
 	)
