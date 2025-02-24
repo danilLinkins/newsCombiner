@@ -6,6 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 dotenv.config()
 
 export default defineConfig({
+	base: '/newsCombiner/',
 	plugins: [
 		react(),
 		tailwindcss(),
