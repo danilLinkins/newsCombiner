@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import SettingsModal from "./SettingsModal.tsx";
 import FilterBox from "./FilterBox.tsx";
 import useGlobalStore from "../Store";
+import ThemeSwitch from "./ThemeSwitch.tsx";
 
 function SearchBox() {
 	const [searchValue, setSearchValue] = useState<string>("");
@@ -45,6 +46,7 @@ function SearchBox() {
 				</label>
 
 				<SettingsModal/>
+				<ThemeSwitch/>
 			</div>
 
 			<FilterBox/>

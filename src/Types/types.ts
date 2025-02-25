@@ -20,13 +20,22 @@ export interface Article {
 }
 
 export interface UserSettings {
-	sources: string[],
-	categories: '' | 'Business' | 'Entertainment' | 'General' | 'Health' | 'Science' | 'Sports' | 'Technology',
+	sources: string[];
+	categories: '' | 'Business' | 'Entertainment' | 'General' | 'Health' | 'Science' | 'Sports' | 'Technology';
+}
+
+export type Filter = {
+	category?: string;
+	date?: number;
+	source?: string;
 }
 
 export interface GlobalState {
 	articles: Article[];
 	isLoading: boolean;
+	categories?: string[];
+	currentFilter?: Filter;
+	setFilter: (filter: Filter) => void;
 	setLoading: (status: boolean) => void;
 	userSettings: UserSettings | null;
 	getArticles: () => Promise<Article[] | void>;
